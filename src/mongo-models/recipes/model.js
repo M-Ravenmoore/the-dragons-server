@@ -23,6 +23,6 @@ const recipeSchema = mongoose.Schema({
   reviews : { type: Array}
 });
 
-const recipeModel = mongoose.model('dragon', recipeSchema);
+const recipeModel = mongoose.model('recipe', recipeSchema);
 
 module.exports = recipeModel;
