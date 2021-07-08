@@ -2,6 +2,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const v1Routes = require('./routes/v1.js');
 
 const app = express();
 
@@ -11,10 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.get('/', homeHandler);
+app.use('/api/v1', v1Routes);
 
 function homeHandler(request, response){
   response.status(200).send('Welcome to Dragons Server commands soon to come');
-
 }
 
 
