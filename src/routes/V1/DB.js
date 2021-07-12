@@ -5,7 +5,7 @@ const express = require('express');
 
 // file requiremnts
 
-const Collection = require('../mongo-models/collector');
+const Collection = require('../../mongo-models/collector');
 
 const router = express.Router();
 

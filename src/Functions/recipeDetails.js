@@ -33,7 +33,7 @@ console.log(request.params)
   })
 }
 
-//constructor for reshaping recipes for db
+//constructor for reshaping recipes for db and front end use
 function Recipe (recipeData) {
   this.sId =recipeData.id;
   this.title = recipeData.title;
