@@ -8,6 +8,7 @@
 
   - 1.0.0 ~~ basic api functionality achived 7/10/2021
   - 1.0.1 ~~ api call to spoon working and returning results 7/12/2021
+  - 1.0.2 ~~ can now get details from spoon api. 7/12/2021
 
 
 ### Links and Resources
@@ -34,7 +35,12 @@ spoonacular api docs  = [spoon](https://spoonacular.com/food-api)
 ### Endpoints
 
 - '/'  home/welcome/proof of life
-- '/api/v1/recipes'  gets all recipes in dragon DB
+- '/api/v1/recipesDB'  gets all recipes in dragon DB
+- '/api/v1/recipesDB/:id' gets one by dragon db id
+- '/recipe/v1/' search function takes params of
+    - search:"thing", type:"query", count:Num
+- '/recipe/v1/details/:id' brings up details for recipes
+
 
 
 #### How to initialize/run your application (where applicable)
