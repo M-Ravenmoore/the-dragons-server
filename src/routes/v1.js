@@ -2,12 +2,19 @@
 
 const fs = require('fs');
 const express = require('express');
+
+// file requiremnts
+
 const Collection = require('../mongo-models/collector');
+const searchHandler = require('../Functions/search')
 
 const router = express.Router();
 
-const models = new Map();
+// db routes
 
+//this allows us to creat other dbs and have routes based on the file name of the rout model.. such as /recipes and /test both at api/v1/(foldername)
+
+const models = new Map();
 router.param('model', (req, res, next) => {
   const modelName = req.params.model;
   if (models.has(modelName)) {
@@ -38,7 +45,6 @@ async function handleGetAll(req, res) {
   res.status(200).json(allRecords);
 }
 
-// make this check if 
 async function handleGetOne(req, res) {
   const id = req.params.id;
   let theRecord = await req.model.get(id);
@@ -63,6 +69,10 @@ async function handleDelete(req, res) {
   let deletedRecord = await req.model.delete(id);
   res.status(200).json(deletedRecord);
 }
+
+// action routes
+
+router.post('/search', searchHandler);
 
 
 module.exports = router;
