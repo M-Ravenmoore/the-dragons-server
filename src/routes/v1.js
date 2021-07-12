@@ -6,7 +6,6 @@ const express = require('express');
 // file requiremnts
 
 const Collection = require('../mongo-models/collector');
-const searchHandler = require('../Functions/search')
 
 const router = express.Router();
 
@@ -47,6 +46,7 @@ async function handleGetAll(req, res) {
 
 async function handleGetOne(req, res) {
   const id = req.params.id;
+
   let theRecord = await req.model.get(id);
   res.status(200).json(theRecord);
 }
@@ -69,10 +69,5 @@ async function handleDelete(req, res) {
   let deletedRecord = await req.model.delete(id);
   res.status(200).json(deletedRecord);
 }
-
-// action routes
-
-router.post('/search', searchHandler);
-
 
 module.exports = router;
