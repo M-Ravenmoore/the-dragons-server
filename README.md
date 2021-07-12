@@ -5,13 +5,16 @@
 ### Author: Matt Ravenmoore
 
 ### Links and Resources
-
+[Production Front end](https://dragonkitchen.netlify.app/)
+[development Front end](https://thedragonskitchen-dev.netlify.app/)
+[development Server](https://dragons-server-dev.herokuapp.com/)
+[Production server](https://the-dragons-server.herokuapp.com/)
 
 ### Setup
 
 1. clone Repo to local.
 1. install the Dependancies useing `npm install`
-1. setup a mongodb database for local testing see (here)[https://docs.mongodb.com/manual/installation/] to go to docs and follow instructions there.
+1. setup a mongodb database for local testing see [here](https://docs.mongodb.com/manual/installation/) to go to docs and follow instructions there.
 1. set env Variables as follows:
   1. PORT=(normaly 3000 but any will work)
   1. MONGODB_URI=(your mongodb link)
