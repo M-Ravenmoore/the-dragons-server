@@ -15,6 +15,15 @@ class DataCollection {
     }
   }
 
+  getSearch(search){
+    console.log('title in collector', search)
+    // currently exact match to complete string
+    // wants to be a fuzzy search
+    let results = this.model.find({$text:{$search:`${search}`}});
+    
+    return results;
+  }
+
   create(record) {
     let newRecord = new this.model(record);
     return newRecord.save();

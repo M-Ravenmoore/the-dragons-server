@@ -9,7 +9,7 @@ const recipeRouter = express.Router();
 
 // recipe routes
 
-recipeRouter.post('/', searchHandler);
+recipeRouter.get('/', searchHandler);
 recipeRouter.get('/details/:id', getRecipe );
 
 

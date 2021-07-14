@@ -14,17 +14,19 @@ const router = express.Router();
 //this allows us to creat other dbs and have routes based on the file name of the rout model.. such as /recipes and /test both at api/v1/(foldername)
 
 const models = new Map();
-router.param('model', (req, res, next) => {
-  const modelName = req.params.model;
+router.param('model', (request, respone, next) => {
+  const modelName = request.params.model;
+  // console.log( models, modelName)
   if (models.has(modelName)) {
-    req.model = models.get(modelName);
+    request.model = models.get(modelName);
     next();
   } else {
-    const fileName = `${__dirname}/../mongo-models/${modelName}/model.js`;
+    const fileName = `${__dirname}/../../mongo-models/${modelName}/model.js`;
+    // console.log(fileName)
     if (fs.existsSync(fileName)) {
       const model = require(fileName);
       models.set(modelName, new Collection(model));
-      req.model = models.get(modelName);
+      request.model = models.get(modelName);
       next();
     }
     else {
@@ -35,39 +37,48 @@ router.param('model', (req, res, next) => {
 
 router.get('/:model', handleGetAll);
 router.get('/:model/:id', handleGetOne);
+router.get('/:model/search/:search', handleTitleSearch)
 router.post('/:model', handleCreate);
 router.put('/:model/:id', handleUpdate);
 router.delete('/:model/:id', handleDelete);
 
-async function handleGetAll(req, res) {
-  let allRecords = await req.model.get();
-  res.status(200).json(allRecords);
+async function handleGetAll(request, respone) {
+  let allRecords = await request.model.get();
+  respone.status(200).json(allRecords);
 }
 
-async function handleGetOne(req, res) {
-  const id = req.params.id;
+async function handleTitleSearch(request, respone) {
+  console.log("look at me",request.params)
+  let title = `${request.params.search}`;
+  console.log(title)
+  let resultsByTitle = await request.model.getSearch(title);
 
-  let theRecord = await req.model.get(id);
-  res.status(200).json(theRecord);
+  respone.status(200).json(resultsByTitle);
+}
+async function handleGetOne(request, respone) {
+  const id = request.params.id;
+
+  let theRecord = await request.model.get(id);
+  respone.status(200).json(theRecord);
 }
 
-async function handleCreate(req, res) {
-  let obj = req.body;
-  let newRecord = await req.model.create(obj);
-  res.status(201).json(newRecord);
+async function handleCreate(request, respone) {
+  let obj = request.body;
+  let newRecord = await request.model.create(obj);
+  respone.status(201).json(newRecord);
 }
 
-async function handleUpdate(req, res) {
-  const id = req.params.id;
-  const obj = req.body;
-  let updatedRecord = await req.model.update(id, obj);
-  res.status(200).json(updatedRecord);
+async function handleUpdate(request, respone) {
+  const id = request.params.id;
+  const obj = request.body;
+  let updatedRecord = await request.model.update(id, obj);
+  respone.status(200).json(updatedRecord);
 }
 
-async function handleDelete(req, res) {
-  let id = req.params.id;
-  let deletedRecord = await req.model.delete(id);
-  res.status(200).json(deletedRecord);
+async function handleDelete(request, respone) {
+  let id = request.params.id;
+  let deletedRecord = await request.model.delete(id);
+  respone.status(200).json(deletedRecord);
 }
 
 module.exports = router;
